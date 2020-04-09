@@ -18,5 +18,17 @@ export default {
   }
 }
 </script>
+<style type="text/css" lang="less">
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    
+  }
+	.container{
+    font-size:0;
+    background:#fff;
+	}
+</style>
 
 
