@@ -1,17 +1,23 @@
 <template>
   <div class="container">
+		<van-row class="vant-header">
+			<van-col>
+				<van-icon name="arrow-left" class="m-header-icon" />
+				<div class="head-title">人才云</div>
+			</van-col>
+		</van-row><!--组件-->			
 		<div class="banner-section">
-			<img class="banner-img" src="./../assets/banner.png">
-			<img class="banner-img" src="./../assets/banner-copy.png">
+			<img class="banner-img" src="@/assets/img/banner.png">
+			<img class="banner-img" src="@/assets/img/banner-copy.png">
 		</div>
 		<div class="page-operation">
 			<div class="operation-list">
 				<div class="operation-item">
-					<img src="./../assets/Triangle.png" class="operation-icon">
+					<img src="@/assets/img/Triangle.png" class="operation-icon">
 					<p class="operation-text">视频课</p>
 				</div>
 				<div class="operation-item">
-					<img src="./../assets/Group-4.png" class="operation-icon">
+					<img src="@/assets/img/Group-4.png" class="operation-icon">
 					<p class="operation-text">联系我们</p>
 				</div>
 			</div>
@@ -20,7 +26,7 @@
 	</div>
 </template>
 <script>
-
+	
 	export default {
 		data() {
 			return{
@@ -35,6 +41,35 @@
 	}
 </script>
 <style type="text/css" lang="less">
+	.vant-header {
+		position: relative;
+		height: 40px;
+		line-height: 40px;
+		background: #fff;
+		color: #0F0F0F;
+		font-size:16px;
+		font-weight: 500;
+		text-align:center;
+	}
+	.m-header-icon {
+		position: absolute;
+		top: 50%;
+		left: 22px;
+		transform: translateY(-50%);
+		font-size: 20px;
+	}
+	.head-title{
+		position: absolute;
+		top:50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+    
+    
+		
+
+
+
 	.banner-section{
 		width: 100%;	
 	}
