@@ -6,11 +6,13 @@ import 'amfe-flexible';
 
 
 
-import { Col, Row,Icon } from 'vant';
+import { Col, Row,Icon, Search, Picker } from 'vant';
 
 Vue.use(Col);
 Vue.use(Row);
 Vue.use(Icon);
+Vue.use(Search);
+Vue.use(Picker);
 
 
 Vue.config.productionTip = false;
