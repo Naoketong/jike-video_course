@@ -1,133 +1,40 @@
 <template>
+<van-pull-refresh v-model="isLoading" @refresh="onRefresh" success-text="刷新成功">
 	<div class="container">
-		
-		<!-- <div class="operation-section">
-			<p class="operation-title">中国银联</p>
-			<div class="operation-binding-list">
-				<div class="operation-binding switch">切换</div>
-				<div class="operation-binding bind">新增绑定</div>
-			</div>
-		</div>	 -->
 		<van-search class="course-input" v-model="value" placeholder="请输入您要搜索的关键词" />
 		<div class="course-section">
 			
 			<div class="course-title">
-				<ul class="course-title-list">
-					<li class="course-title-item">79门课程</li>
-					<li class="course-title-item">201课时</li>
-					<li class="course-title-item">392.5小时</li>
+				<ul class="course-title-list" >
+					<li class="course-title-item">{{base_info.coursesCount}}门课程</li>
+					<li class="course-title-item">{{base_info.coursesLessonsCount}}课时</li>
+					<li class="course-title-item">{{base_info.total_duration}}</li>
 				</ul>
 			</div>
+			<!--<div style="height:1500px;background:blue"></div>-->
 			<div class="course-content">
-				<ul class="course-list">
-					<li class="course-item">
-						<div class="course-main">
-							<div class="course-main_img">
-								<img src="@/assets/img/Bitmap.png" class="main-img_banner">
-								<img src="@/assets/img/The-latest.png" class="main-img_thelates">
-								<img src="@/assets/img/level-1.png" class="main-img_level">
-							</div>
-							<div class="course-text">
-								<div class="course-main_title">
-									Vue Element+Node.js开通用后台管理系统
-								</div>
-								<div class="course-main_text">互联网架构师必备技能</div>
-								<div class="course-main_time">
-									<div class="time-when">2.5小时</div>
-									<div class="course-main_class">8课时</div>
-								</div>
-							</div>
+				<ul class="course-list" >
+					<li class="course-item" v-for="item in courseData.list">
+						<div class="course-main_img">
+							<img :src="item.cover_url" class="main-img_banner">
+							<img v-if="item.status_label" src="@/assets/img/The-latest.png" class="main-img_thelates">
+							<img v-if="item.difficulty_level_label == '入门'" src="@/assets/img/level-1.png" class="main-img_level">
+							<img v-if="item.difficulty_level_label == '进阶'" src="@/assets/img/level-2.png" class="main-img_level">
+							<img v-if="item.difficulty_level_label == '高阶'" src="@/assets/img/level-3.png" class="main-img_level">
 						</div>
-						<div class="course-main">
-							<div class="course-main_img">
-								<img src="@/assets/img/Bitmap.png" class="main-img_banner">
-								<img src="@/assets/img/The-latest.png" class="main-img_thelates">
-								<img src="@/assets/img/level-1.png" class="main-img_level">
+						<div class="course-text">
+							<div class="course-main_title">
+								<!--Vue Element+Node.js开通用后台管理系统-->
+								{{item.name}}
 							</div>
-							<div class="course-text">
-								<div class="course-main_title">
-									Vue Element+Node.js开通用后台管理系统
-								</div>
-								<div class="course-main_text">互联网架构师必备技能</div>
-								<div class="course-main_time">
-									<div class="time-when">2.5小时</div>
-									<div class="course-main_class">8课时</div>
-								</div>
+							<div class="course-main_text">互联网架构师必备技能</div>
+							<div class="course-main_time">
+								<div class="time-when">{{item.total_duration}}</div>
+								<div class="course-main_class">{{item.sort}}课时</div>
 							</div>
 						</div>
 					</li>
-					<li class="course-item">
-						<div class="course-main">
-							<div class="course-main_img">
-								<img src="@/assets/img/Bitmap.png" class="main-img_banner">
-								<img src="@/assets/img/The-latest.png" class="main-img_thelates">
-								<img src="@/assets/img/level-1.png" class="main-img_level">
-							</div>
-							<div class="course-text">
-								<div class="course-main_title">
-									Vue Element+Node.js开通用后台管理系统
-								</div>
-								<div class="course-main_text">互联网架构师必备技能</div>
-								<div class="course-main_time">
-									<div class="time-when">2.5小时</div>
-									<div class="course-main_class">8课时</div>
-								</div>
-							</div>
-						</div>
-						<div class="course-main">
-							<div class="course-main_img">
-								<img src="@/assets/img/Bitmap.png" class="main-img_banner">
-								<img src="@/assets/img/The-latest.png" class="main-img_thelates">
-								<img src="@/assets/img/level-1.png" class="main-img_level">
-							</div>
-							<div class="course-text">
-								<div class="course-main_title">
-									Vue Element+Node.js开通用后台管理系统
-								</div>
-								<div class="course-main_text">互联网架构师必备技能</div>
-								<div class="course-main_time">
-									<div class="time-when">2.5小时</div>
-									<div class="course-main_class">8课时</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					<li class="course-item">
-						<div class="course-main">
-							<div class="course-main_img">
-								<img src="@/assets/img/Bitmap.png" class="main-img_banner">
-								<img src="@/assets/img/The-latest.png" class="main-img_thelates">
-								<img src="@/assets/img/level-1.png" class="main-img_level">
-							</div>
-							<div class="course-text">
-								<div class="course-main_title">
-									Vue Element+Node.js开通用后台管理系统
-								</div>
-								<div class="course-main_text">互联网架构师必备技能</div>
-								<div class="course-main_time">
-									<div class="time-when">2.5小时</div>
-									<div class="course-main_class">8课时</div>
-								</div>
-							</div>
-						</div>
-						<div class="course-main">
-							<div class="course-main_img">
-								<img src="@/assets/img/Bitmap.png" class="main-img_banner">
-								<img src="@/assets/img/The-latest.png" class="main-img_thelates">
-								<img src="@/assets/img/level-1.png" class="main-img_level">
-							</div>
-							<div class="course-text">
-								<div class="course-main_title">
-									Vue Element+Node.js开通用后台管理系统
-								</div>
-								<div class="course-main_text">互联网架构师必备技能</div>
-								<div class="course-main_time">
-									<div class="time-when">2.5小时</div>
-									<div class="course-main_class">8课时</div>
-								</div>
-							</div>
-						</div>
-					</li>
+				
 				
 				</ul>
 			</div>
@@ -144,97 +51,127 @@
 				<p class="prcker-text">课程分类</p>
 			</div>
 			<div class="prcker-select">
-				<van-picker class="prcker-select_main" show-toolbar  :columns="columns" />
+				<van-picker class="prcker-select_main" show-toolbar  :columns="category" />
 			</div>
 			
 		</div>	<!--组件 -->
+		
 			
 		
 	</div>
+
+</van-pull-refresh>
 </template>
 <script>
+	import courseModel from '@/models/course.js'
 	export default {
 		data() {
-    return {
-			value:'',
-      columns: [{
-        text: '浙江',
-        children: [{
-          text: '杭州',
-          children: [{ text: '西湖区' }, { text: '余杭区' }]
-        }, {
-          text: '温州',
-          children: [{ text: '鹿城区' }, { text: '瓯海区' }]
-        }]
-      }, {
-        text: '福建',
-        children: [{
-          text: '福州',
-          children: [{ text: '鼓楼区' }, { text: '台江区' }]
-        }, {
-          text: '厦门',
-          children: [{ text: '思明区' }, { text: '海沧区' }]
-        }]
-      }]
-    };
-  },
+			return {
+				value:'',
+				courseData:[],
+				base_info:[],
+				category:[],
+				count: 0,
+				isLoading: false,
+				current_page: 1,
+			};
+		},
 		created(){
+			this.course();			
 		},
 		methods:{
+			course() {
+				courseModel.list().then( res => {
+					this.courseData = res.data;
+					this.base_info = res.data.base_info;
+					this.current_page = res.data.pagination.current_page;
+					this.pageBottom()
+				});
+			},
+			categorys(){
+				courseModel.category().then( res => {
+					let arr = res.data.categories;
+					this.category = arr.map(data=>{
+						let content = data.contents;
+						content.map(item=>{
+							let text = 'text';
+							// let children = 'children';
+							item[text] = item['name'];
+							// item[children] = item['contents']
+							delete item['name'];
+							// delete item['contents'];
+						})
+						return{
+							text:data['name'],
+							children:data['contents']
+						}				
+					})
+				});
+			},
+			pageBottom() {
+				let that = this;
+				let current_page = this.current_page;
+				window.onscroll = function() {
+					let pageHeight = document.body.clientHeight;
+					let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+					let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+					let	thresold = pageHeight - scrollTop - windowHeight;
+					if (thresold > -100 && thresold <= 20) {
+						that.Page_Refresh();												
+					}
+				};
+			},
+			Page_Refresh(){
+				let current_page = this.current_page;
+				let page = current_page + 1;
+				let page_size = 12;
+				let params = {page,page_size}
+				courseModel.categoryAdd(params).then(res=>{
+					if(res.data.list == ''){
+						this.course();
+						setTimeout(() => {
+							this.$toast('返回第一页');
+							this.isLoading = false;
+							this.count++;
+						}, 1000);
+					}else{
+						this.courseData = res.data;
+						this.base_info = res.data.base_info;
+						this.current_page += 1;
+					}
+				})
+				window.scrollTo(0,0);
+				setTimeout(() => {
+					this.$toast('已更新课单');
+					this.isLoading = false;
+					this.count++;
+				}, 100);
+
+
+			},
+			
+			onRefresh() {
+				setTimeout(() => {
+					this.$toast('刷新成功');
+					this.isLoading = false;
+					this.count++;
+				}, 1000);
+			},
 		},
 		components: {
 		},
 	}
 </script>
 
-<style type="text/css" lang="less">
+<style type="text/css" lang="less" >
 	.container{
+		width:100%;
+		height:100%;
 		padding:15px;
 	}
 	.course-input{
 		margin-bottom: 10px;
 	}
-	/* .operation-section{
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		width: 100%;
-		height: 36px;
-		margin-bottom: 4px;
-		.operation-title{
-			font-size:14px;
-			color:#333;
-			line-height: 36px;
-			font-weight:600;
-		}
-		.operation-binding-list{
-			display: flex;
-			justify-content: flex-end;
-		}
-		.operation-binding{
-			font-size: 10px;
-			line-height: 36px;
-			color: #999;
-		}
-		.operation-binding:before{
-			display: inline-block;
-			content: '';
-			width: 14px;
-			height: 14px;
-			background-repeat: no-repeat;
-			vertical-align: middle;
-			margin-right: 3px;
-		}
-		.operation-binding.switch{
-			margin-right: 11px;
-		}
-		.operation-binding.switch:before{
-			background-image: url('./../assets/img/switch.png');
-		}
-		.operation-binding.bind:before{
-			background-image: url('./../assets/img/Group-5.png');
-		}
-	} */
 	.course-section{
 		width: 100%;
 		/* display: none; */
@@ -270,89 +207,90 @@
 			font-size: 0;
 			margin-top: 15px;
 			.course-item{
-				display: flex;
-				justify-content:space-between;
-				align-items: flex-start;
-				.course-main{
-					width: 167px;
-					box-shadow:1px 1px 1px #f2f2f2;
-					margin-bottom: 10px;
-					.course-main_img{
-						position: relative;
-						margin-bottom: 8px;
-						.main-img_banner{
-							width: 100%;
-							height: 96px;
-						}
-						.main-img_thelates{
-							position: absolute;
-							top: 0;
-							left: 0;
-						}
-						.main-img_level{
-							position: absolute;
-							top: 0;
-							right:8px;
-						}
+				display: inline-block;
+				margin-right:10px;
+				width: 167px;
+				box-shadow:1px 1px 1px #f2f2f2;
+				margin-bottom: 10px;
+				vertical-align:top;
+				.course-main_img{
+					position: relative;
+					margin-bottom: 8px;
+					.main-img_banner{
+						width: 100%;
+						height: 96px;
 					}
-					.course-text{
-						padding:8px;
-						.course-main_title{
-							font-size: 10px;
-							color:#333;
-							font-weight:600;
-						}
-						.course-main_text{
-							font-size: 6px;
-							line-height: 6px;
-							font-weight: 400;
-							color: #999;
-							margin: 8px 0;
-						}
-						.course-main_time{
-							margin-bottom: 5px;
-							.time-when{
-								position: relative;
-								display: inline-block;
-								font-size: 6px;
-								color: #999;
-								/* vertical-align: middle; */
-								margin-top:4px;
-								margin-right:18px;
-								padding-left:16px;
-							}
-							.time-when:before{
-								position: absolute;
-								top:2px;
-								left: 0px;
-								content: '';
-								display: inline-block;
-								width: 16px;
-								height: 16px;
-								background-image: url('./../assets/img/time-icon.png');
-								background-repeat: no-repeat;
-								background-size: 12px 12px;
-							}
-							.time-when:after{
-								position: absolute;
-								top:2px;
-								right: -9px;
-								content: '';
-								display: inline-block;
-								width: 1px;
-								height: 12px;
-								background-color: #999;
-							}
-							.course-main_class{
-								display: inline-block;
-								font-size: 6px;
-								color:#999;
-								/* vertical-align: middle; */
-							}
-						}
+					.main-img_thelates{
+						position: absolute;
+						top: 0;
+						left: 0;
 					}
-					
+					.main-img_level{
+						position: absolute;
+						top: 0;
+						right:8px;
+					}
 				}
+				.course-text{
+					padding:8px;
+					.course-main_title{
+						font-size: 10px;
+						color:#333;
+						font-weight:600;
+					}
+					.course-main_text{
+						font-size: 6px;
+						line-height: 6px;
+						font-weight: 400;
+						color: #999;
+						margin: 8px 0;
+					}
+					.course-main_time{
+						margin-bottom: 5px;
+						.time-when{
+							position: relative;
+							display: inline-block;
+							font-size: 6px;
+							color: #999;
+							/* vertical-align: middle; */
+							margin-top:4px;
+							margin-right:18px;
+							padding-left:16px;
+						}
+						.time-when:before{
+							position: absolute;
+							top:2px;
+							left: 0px;
+							content: '';
+							display: inline-block;
+							width: 16px;
+							height: 16px;
+							background-image: url('./../assets/img/time-icon.png');
+							background-repeat: no-repeat;
+							background-size: 12px 12px;
+						}
+						.time-when:after{
+							position: absolute;
+							top:2px;
+							right: -9px;
+							content: '';
+							display: inline-block;
+							width: 1px;
+							height: 12px;
+							background-color: #999;
+						}
+						.course-main_class{
+							display: inline-block;
+							font-size: 6px;
+							color:#999;
+							/* vertical-align: middle; */
+						}
+					}
+				}
+					
+			}
+			.course-item:nth-child(2n){
+				margin-right: 0;
 			}
 		}
 	
@@ -376,13 +314,15 @@
 		}
 	}
 
-
+	
 	.prcker-section{
 		position: fixed;
 		bottom: 0;
 		right: 0;
+		width:100%;
+		height:100%;	
 		.prcker-text_item{
-			position: absolute;
+			position: fixed;
 			bottom: 30px;
 			right: 15px;
 			width:112px;
@@ -405,17 +345,14 @@
 				color: #fff;
 			}
 		}
-	
 		.prcker-select{
-			display: none;
-			width: 375px;
-			height: 666px;
+			display:none;
 			background-color: rgba(0, 0, 0, .5);
-			z-index: 999;
 			.prcker-select_main{
 				width: 100%;
 				position: absolute;
 				bottom: 0;
+				z-index: 20;
 			}
 		}
 		

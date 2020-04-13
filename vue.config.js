@@ -4,12 +4,12 @@ module.exports = {
     loaderOptions: {
       postcss: {
         plugins: [
-          require('postcss-pxtorem')({
+          require("postcss-pxtorem")({
             rootValue: 37.5,
-            propList: ['*']
+            propList: ["*"]
           })
         ]
       }
     }
   }
-}
+};

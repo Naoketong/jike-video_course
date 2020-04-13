@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-		<!-- <img src="@/assets/img/位图.png" alt=""> -->
 		<div class="course_video-section">
 			<video class="course_video" src="" controls=""></video>
 		</div>
@@ -97,7 +96,7 @@
 		},
 	}
 </script>
-<style type="text/css" lang="less">
+<style type="text/css" lang="less" scoped>
 	.container{
 		padding:0;
 	}
@@ -215,4 +214,4 @@
 		}
 
 	}
-</style>
+</style>-->

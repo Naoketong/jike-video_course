@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import routes from './route.js';
+import routes from "./route.js";
 // import Login from '@/views/login'
 // import Index from '@/views/index'
 // import Course from '@/views/course'
@@ -43,7 +43,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: "history",
   // base: process.env.BASE_URL,
-  routes:routes
+  routes: routes
 });
 
 export default router;
