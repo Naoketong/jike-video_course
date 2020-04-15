@@ -7,8 +7,8 @@ export default {
   category(params) {
     return request.get(API.courseItem, params);
   },
-  categoryAdd(params) {
-    return request.get(API.course, params);
+  CourseSearch(params) {
+    return request.get(API.courseSearch, params);
   },
   // show(id) {
   //   return request.get(API.courseItem(id));

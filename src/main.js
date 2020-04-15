@@ -12,6 +12,7 @@ import {
   Picker,
   PullRefresh,
   Toast,
+  Popup,
   
 } from "vant";
 
@@ -22,6 +23,7 @@ Vue.use(Search);
 Vue.use(Picker);
 Vue.use(PullRefresh);
 Vue.use(Toast);
+Vue.use(Popup);
 
 Vue.config.productionTip = false;
 
