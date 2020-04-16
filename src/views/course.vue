@@ -74,7 +74,7 @@
 					for(let i in res.data.list){
 						courseData.push(res.data.list[i]);
 					}
-					this.courseData = courseData ;
+					this.courseData = courseData;
 					this.base_info = res.data.base_info;
 					this.current_page = res.data.pagination.current_page;
 					this.pageBottom()
@@ -148,19 +148,15 @@
 	
 			onSearch(e){
 				let search_text = this.search_input;
-				let page = 1;
-				let page_size = this.page_total;
-				let params = { search_text, page, page_size	}
-
-				this.$router.push(	'course_search/' + search_text );
-
-
-
-
-
-				// courseModel.CourseSearch(params).then( res => {
-				// 	console.log(res)
-				// });
+				if(search_text == ''){
+					setTimeout(() => {
+						this.$toast('请输入搜索内容');
+						this.isLoading = false;
+						this.count++;
+					}, 100);
+				}else{
+					this.$router.push(	'course_search/' + search_text );
+				}
 			},
 			onConfirm(e){
 				this.course_class = false;
@@ -179,7 +175,7 @@
 	}
 </script>
 
-<style type="text/css" lang="less" >
+<style type="text/css" lang="less" scoped>
 	.container{
 		width:100%;
 		height:100%;
@@ -188,8 +184,6 @@
 	.course-input{
 		width: 100%;
 		height: 100px;
-		position: relative;
-		z-index: 12;
 	}
 	.course-section{
 		width: 100%;
@@ -244,18 +238,14 @@
 
 	
 	.prcker-section{
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		width:100%;
-		height:100%;	
+	
 		.prcker-text_item{
 			position: fixed;
 			bottom: 30px;
 			right: 15px;
 			width:112px;
 			height: 38px;
-			z-index: 10;
+			// z-index: 999;
 			background-color:rgba(0,0,0,.8);
 			border-radius:30px;
 			.prcker-icon{
@@ -274,13 +264,18 @@
 			}
 		}
 		.prcker-select{
-			// display:none;
-			background-color: rgba(0, 0, 0, .5);
+			position:fixed;
+			left:0;
+			bottom: 0;
+			width:100%;
+			// height:30%;
+			background-color: #fff;;
 			.prcker-select_main{
 				width: 100%;
-				position: absolute;
-				bottom: 0;
-				z-index: 20;
+				// height:100px;
+				// position: absolute;
+				
+				// z-index: 20;
 			}
 		}
 		

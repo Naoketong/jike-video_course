@@ -34,7 +34,7 @@ export default {
   components: {}
 };
 </script>
-<style type="text/css" lang="less" >
+<style type="text/css" lang="less" scoped>
 .vant-header {
   position: relative;
   height: 40px;

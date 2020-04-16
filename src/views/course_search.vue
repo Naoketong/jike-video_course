@@ -3,7 +3,7 @@
 		<van-search class="course-input" v-model="search_input" placeholder="请输入搜索关键词"  @search="onSearch"/>
 		
 		<div class="course-content">
-			<CouorseList/><!--课程组件-->
+			<CouorseList :courseData="courseData"/><!--课程组件-->
 		</div>
 		<div class="course_none-section" v-show="no_course"> 
 			<div class="course_none-banner">
@@ -74,7 +74,12 @@
 					if(res.data.list == ''){
 						this.no_course = true;
 					}else if(res.data.list !== ''){
-						console.log(res.data.list)
+						// console.log(res.data.list)
+						let courseData = [];
+						for(let i in res.data.list){
+							courseData.push(res.data.list[i]);
+						}
+						this.courseData = courseData ;
 						this.prcker_all = false;
 					}
 				});
@@ -118,7 +123,7 @@
 	}
 </script>
 
-<style type="text/css" lang="less" >
+<style type="text/css" lang="less" scoped>
 	.container{
 		width:100%;
 		height:100%;
@@ -152,11 +157,11 @@
 
 	
 	.prcker-section{
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		width:100%;
-		height:100%;	
+		// position: fixed;
+		// bottom: 0;
+		// right: 0;
+		// width:100%;
+		// height:100%;	
 		.prcker-text_item{
 			position: fixed;
 			bottom: 30px;

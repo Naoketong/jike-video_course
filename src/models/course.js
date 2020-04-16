@@ -1,18 +1,18 @@
 import request from "./request.js";
 import API from "./api.js";
 export default {
-  list(params) {
+  list(params) {//获取全部课程
     return request.get(API.course, params);
   },
-  category(params) {
+  category(params) {//获取课程分类
     return request.get(API.courseItem, params);
   },
-  CourseSearch(params) {
+  CourseSearch(params) {//选择课程（搜索）
     return request.get(API.courseSearch, params);
   },
-  // show(id) {
-  //   return request.get(API.courseItem(id));
-  // },
+  courseItem(id) {//获取课程详情
+    return request.get(API.courseId(id));
+  },
   // update(id, params) {
   //   return request.put(API.courseItem(id), params)
   // },

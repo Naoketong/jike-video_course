@@ -1,6 +1,6 @@
 <template>
-  <ul class="course-list" v-model="courseData">
-    <li class="course-item" v-for="item in courseData">
+  <div class="course-list" v-model="courseData">
+    <div class="course-item" v-for="item in courseData" @click="hand_jump">
       <div class="course-main_img">
         <img :src="item.cover_url" class="main-img_banner">
         <img v-if="item.status_label" src="@/assets/img/The-latest.png" class="main-img_thelates">
@@ -18,9 +18,9 @@
           <div class="course-main_class">{{item.sort}}课时</div>
         </div>
       </div>
-    </li>
+    </div>
           
-  </ul>
+  </div>
 
 </template>
 
@@ -37,76 +37,27 @@ export default {
   },
   data(){
     return{
-      // courseData:[],
-      // base_info:[],
-      // category:[],
-      // count: 0,
-      // isLoading: false,
-      // current_page: 1,
-      // showPicker:false,
+      
     }
   },
   created () {
-  //  this.course();	
+   
   },
   methods: {
-    // course() {
-    //   courseModel.list().then( res => {
-    //     console.log(res)
-    //     this.courseData = res.data;
-    //     this.base_info = res.data.base_info;
-    //     this.current_page = res.data.pagination.current_page;
-    //     this.pageBottom()
-    //   });
-    // },
-    // pageBottom() {
-    //   let that = this;
-    //   let current_page = this.current_page;
-    //   window.onscroll = function() {
-    //     let pageHeight = document.body.clientHeight;
-    //     let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-    //     let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    //     let	thresold = pageHeight - scrollTop - windowHeight;
-    //     if (thresold > -100 && thresold <= 20) {
-    //       that.Page_Refresh();												
-    //     }
-    //   };
-    // },
-    // Page_Refresh(){
-    //   let current_page = this.current_page;
-    //   let page = current_page + 1;
-    //   let page_size = 12;
-    //   let params = {page,page_size}
-    //   courseModel.list(params).then(res=>{
-    //     if(res.data.list == ''){
-    //       this.course();
-    //       setTimeout(() => {
-    //         this.$toast('返回第一页');
-    //         this.isLoading = false;
-    //         this.count++;
-    //       }, 1000);
-    //     }else{
-    //       this.courseData = res.data;
-    //       this.base_info = res.data.base_info;
-    //       this.current_page += 1;
-    //     }
-    //   })
-    //   window.scrollTo(0,0);
-    //   setTimeout(() => {
-    //     this.$toast('已更新课单');
-    //     this.isLoading = false;
-    //     this.count++;
-    //   }, 100);
-
-
-    // },
+    hand_jump(e){
+      console.log(e)
+      // let id = id;
+      // console.log('跳转了')
+      // this.$router.push(	'course/' + id );
+    },
+   
   },
   components: {
   }
 }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="less" scoped>
   .course-list{
     font-size: 0;
     margin-top: 15px;
