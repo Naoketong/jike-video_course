@@ -1,6 +1,6 @@
 <template>
   <div class="course-list" v-model="courseData">
-    <div class="course-item" v-for="item in courseData" @click="hand_jump">
+    <div class="course-item" v-for="item in courseData" @click="hand_jump" :data-id="item.id"> 
       <div class="course-main_img">
         <img :src="item.cover_url" class="main-img_banner">
         <img v-if="item.status_label" src="@/assets/img/The-latest.png" class="main-img_thelates">
@@ -26,35 +26,34 @@
 
 <script>
   import courseModel from '@/models/course.js'
-export default {
-  name: 'Course_list',
-  props: {
-    defaultActive: String,
-    courseData:{
-      type:Array,
-      required:true,
-    }
-  },
-  data(){
-    return{
-      
-    }
-  },
-  created () {
-   
-  },
-  methods: {
-    hand_jump(e){
-      console.log(e)
-      // let id = id;
-      // console.log('跳转了')
-      // this.$router.push(	'course/' + id );
+  export default {
+    name: 'Course_list',
+    props: {
+      defaultActive: String,
+      courseData:{
+        type:Array,
+        required:true,
+      }
     },
-   
-  },
-  components: {
+    data(){
+      return{
+        
+      }
+    },
+    created () {
+    
+    },
+    methods: {
+      hand_jump(e){
+        // console.log(e.currentTarget.dataset.id)
+        let id = e.currentTarget.dataset.id;
+        this.$router.push(	'course/' + id );
+      },
+    
+    },
+    components: {
+    }
   }
-}
 </script>
 
 <style scoped lang="less" scoped>

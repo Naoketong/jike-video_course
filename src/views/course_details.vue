@@ -1,79 +1,37 @@
 <template>
   <div class="container">
 		<div class="course_video-section">
-			<video class="course_video" src="" controls=""></video>
+			<video class="course_video" :src="videoUrl" controls=""></video>
 		</div>
 		<div class="course-content">
 			<div class="course-title">
-				<p class="course-text">Vue Element+Node.js开通用后台管理系统</p>
+				<p class="course-text">{{courseData.name}}</p>
 				<div class="course-main_time">
-					<div class="time-when">2.5小时</div>
-					<div class="course-main_class">8课时</div>
+					<div class="time-when">{{courseData.total_duration}}</div>
+					<div class="course-main_class">{{courseData.contents_count}}课时</div>
 				</div>
 			</div>
 			<div class="course-main">
-				<ul class="course-list">
-					<li class="course-item-title">第一节 促使java</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">我是搜书的电动机的说法京东方拉克丝京东方 代收款就</p>
+				<ul class="course-list" v-for="(item,index) in ocurse_content_Data" :key="index">
+					<li class="course-item-title">第{{index + 1}}节 {{item.name}}</li>
+					<li 	:class="index == 0 ? 'course-item active' :'course-item'"	>	<!-- -->
+						<div
+							class="course-items"
+							v-for="(elem,index) in item.children" 
+							:data-url="elem.url"  
+							@click="videoSelect"
+							@mouseover="mouseOver($event)" 
+							@mouseleave="mouseLeave($event)"
+						>
+							<div class="course-item-left">
+								<span class="course-grade">{{index + 1}}</span>
+								<p class="course-chapter">{{elem.name}}</p>
+							</div>
+							<div class="course-chadivter-time">{{elem.duration}}</div>
 						</div>
-						<div class="course-chadivter-time">5分钟</div>
 					</li>
 				</ul>
-				<ul class="course-list">
-					<li class="course-item-title">第一节 促使java</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">我是搜书的电动机的说法京东方拉克丝京东方 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">我是搜书的电动机的说法京东方拉克丝京东方 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">拉克丝京东方 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter"> 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">我是搜书的电动机的说法京东方拉克丝京东方 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">我是搜书的电动机的说法京东方拉克丝京东方 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-					<li class="course-item">
-						<div class="course-item-left">
-							<span class="course-grade">1</span>
-							<p class="course-chapter">我是搜书的电动机的说法京东方拉克丝京东方 代收款就</p>
-						</div>
-						<div class="course-chadivter-time">5分钟</div>
-					</li>
-				</ul>
+				
 			</div>
 
 		</div>
@@ -81,16 +39,55 @@
 	</div>
 </template>
 <script>
-
+	import courseModel from '@/models/course.js'
 	export default {
     name:'course_details',
 		data() {
 			return{
+				courseData:[],
+				ocurse_content_Data:[],
+				videoUrl:'',	  	
 			}
 		},
 		created(){
+			this.course();
 		},
-		methods:{
+		methods:{	
+			course(){
+				let url = this.$route.path;
+				let index =  url.lastIndexOf("\/"); 
+				let id = url.substring(index + 1,url.length);
+				courseModel.courseItem(id).then(res=>{
+					this.courseData = res.data.course;
+					this.ocurse_content_Data = res.data.course.content;
+					this.videoUrl = res.data.course.content[0].children[0].url;//默认第一个视频播放
+				})
+
+			},
+			mouseOver($event){
+				$event.currentTarget.className = "course-items active";
+				let one_class = document.getElementsByClassName('course-item active')[0]
+				if(one_class){
+					one_class.className = 'course-item'
+				}else{
+					return
+				}
+			},
+			mouseLeave($event) {
+				$event.currentTarget.className = "course-items";
+			},
+			videoSelect(e){
+				this.videoUrl = e.currentTarget.dataset.url;
+				window.scrollTo(0,0);
+				if(this.videoUrl == ''){
+					setTimeout(() => {
+						this.$toast('无法观看视频');
+						this.isLoading = false;
+						this.count++;
+					}, 100);
+				}
+			},
+			
 		},
 		components: {
 		},
@@ -171,14 +168,18 @@
 				margin-bottom:12px
 			}
 			.course-item{
-				display: flex;
-				justify-content: space-between;
-				
 				width: 100%;
 				height: 50px;
-				/* background-color: #f5f5f5; 点击*/
-				border-radius:5px;
-				padding:15px;
+				display:inline-block;
+				.course-items{
+					width:100%;
+					height:100%;
+					display: flex;
+					justify-content: space-between;
+					align-items:center;
+					border-radius:5px;
+					padding:0 15px;
+				}
 				.course-item-left{
 					display: flex;
 					align-items: center;
@@ -206,12 +207,20 @@
 					white-space: nowrap;
 				}
 				.course-chadivter-time{
+					display:inline-block;
 					font-size: 12px;
 					color:#adadad;
 					/* color:#333;点击 */
 				}
 			}
+			.course-item.active,.course-items.active{
+				background-color: #f5f5f5;
+				.course-chadivter-time{
+					display:inline-block;
+					color:#333;
+				}
+			}
 		}
 
 	}
-</style>-->
+</style>
