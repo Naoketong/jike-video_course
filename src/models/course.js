@@ -1,6 +1,12 @@
 import request from "./request.js";
 import API from "./api.js";
 export default {
+  login(params) {
+    return request.post(API.login, params)
+  },
+  login_sms(params) {
+    return request.post(API.login_sms, params)
+  },
   list(params) {//获取全部课程
     return request.get(API.course, params);
   },

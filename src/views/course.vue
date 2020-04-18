@@ -127,6 +127,7 @@
 			},
 			categorys(){
 				courseModel.category().then( res => {
+					console.log(res)
 					let arr = res.data.categories;
 					this.category = arr.map(data=>{
 						let content = data.contents;
@@ -159,7 +160,8 @@
 				}
 			},
 			onConfirm(e){
-				this.course_class = false;
+				console.log(e)
+				this.showPicker = false;
 			},
 			onRefresh() {
 				setTimeout(() => {

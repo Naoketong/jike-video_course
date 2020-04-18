@@ -69,8 +69,6 @@
 				let one_class = document.getElementsByClassName('course-item active')[0]
 				if(one_class){
 					one_class.className = 'course-item'
-				}else{
-					return
 				}
 			},
 			mouseLeave($event) {

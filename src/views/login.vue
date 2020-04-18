@@ -27,7 +27,7 @@
           <div class="login-button">提交</div>
           <div class="login-sub">
             <img src="@/assets/img/Group-3.png" class="login-sub-img" />
-            <p class="login-sub-text">如何获取企业二维码</p>
+            <p class="login-sub-text"  @click="get_code">如何获取企业二维码</p>
           </div>
         </div>
       </div>
@@ -35,8 +35,9 @@
         <img src="@/assets/img/banner-bottom.png" class="banner_img" />
       </div>
     </div>
-    <div class="login-mask">
+    <div class="login-mask" v-show="mask_page">
       <img src="@/assets/img/mask.png" class="mask-banner" />
+      <span class="login-mask-icon" @click="dont_mask">X</span>
     </div>
   </div>
 </template>
@@ -44,10 +45,19 @@
 export default {
   name: "login",
   data() {
-    return {};
+    return {
+      mask_page:false,
+    };
   },
   created() {},
-  methods: {},
+  methods: {
+    get_code(){
+      this.mask_page = true;
+    },
+    dont_mask(){
+      this.mask_page = false;
+    },
+  },
   components: {}
 };
 </script>
@@ -131,19 +141,31 @@ export default {
   }
 }
 .login-mask {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   .mask-banner {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .login-mask-icon{
+    position:absolute;
+    bottom:50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width:40px;
+    line-height:40px;
+    color:15px;
+    color: rgba(255,255,255,.8);
+    border:2px solid rgba(255,255,255,.4);
+    text-align:center;
+    border-radius:50%;
   }
 }
 </style>
